@@ -40,14 +40,11 @@ class GUIVisualInfo:
         self.initializeX = self.Margin // 2
 
 
-def draw(drawInfo, sortingAlgorithmName, ascending):
+def draw(drawInfo):
     drawInfo.window.fill(drawInfo.BackgroundColor)
 
     controls = drawInfo.Font.render("Key: R = reset, Space = Start visualizer, A = Ascending, D = Descending", 1, drawInfo.White)
     drawInfo.window.blit(controls, (drawInfo.width/2 - controls.get_width()/2, 10))
-
-    sorting = drawInfo.Font.render("I = Insertion, B = Bubble Sort", 1, drawInfo.White)
-    drawInfo.window.blit(sorting, (drawInfo.width/2 - sorting.get_width()/2, 10))
 
     drawList(drawInfo)
     pygame.display.update()
@@ -116,7 +113,7 @@ def main():
     sortingAlgorithmGenerator = None
 
     while active:
-        #clock.tick(165)
+        #clock.tick(60)
 
         if sorting:
             try:
