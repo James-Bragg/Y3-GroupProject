@@ -1,7 +1,7 @@
 import math
 import pygame
 import random
-pygame.init()
+pygame.init() #hello
 
 class GUIVisualInfo:
     # variables for colours
