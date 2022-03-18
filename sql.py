@@ -9,3 +9,10 @@ conn.commit()
 
 def Test():
     pass
+
+
+def Encryption():
+    pass
+
+def DEncryption():
+    pass
