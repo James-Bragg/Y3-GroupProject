@@ -17,7 +17,7 @@ def ButtonCommit(): #The button to enter information
     global AlgorithmValue, NumbersValue
     AlgorithmValue = str(variable.get()) #Retrieve information from textboxes
     NumbersValue = str(NumbersTextbox.get())
-    print(AlgorithmValue)
+    print(AlgorithmValue) #To see if the inputs are taken in correctly
     print(NumbersValue)
     
 
@@ -36,7 +36,7 @@ AlgorithmTextbox = OptionMenu(root, variable, *SortList)
 NumbersText = Label(root, text = "What numbers do you want?")
 NumbersTextbox = Entry(root, width=10)
 
-CommitButton = Button(root, height=1, width=12, text="Enter", command=ButtonCommit())
+CommitButton = Button(root, height=1, width=12, text="Enter", command=lambda: ButtonCommit())
 
 
 
