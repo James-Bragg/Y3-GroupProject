@@ -4,6 +4,7 @@ import random
 pygame.init()
 
 class GUIVisualInfo:
+    # variables for colours
     Black = 0, 0, 0
     White = 255, 255 , 255
     Green = 0, 255, 0
@@ -17,10 +18,12 @@ class GUIVisualInfo:
         (192, 192, 192)
     ]
 
+    # variable for font and GUI sizes
     Font = pygame.font.SysFont('Arial', 30)
     BFont = pygame.font.SysFont('Arial', 40)
     Margin = 100
     TopBorder = 150
+
 
     def __init__(self, width, height, lst):
         self.width = width
@@ -30,6 +33,7 @@ class GUIVisualInfo:
         pygame.display.set_caption("Algorithm visualizer")
         self.setList(lst)
 
+    # setting list and creating GUI objects to visualize data
     def setList(self, lst):
         self.lst = lst
         self.minVal = min(lst)
