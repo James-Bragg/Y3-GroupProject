@@ -1,17 +1,23 @@
 from tkinter import *
 import tkinter as tk
-from PIL import ImageTk, Image
+import xdrlib
+from PIL import ImageTk, Image #pip install pillow
 
 # constants
 n_height = 560
 n_width = 480
 
 cr_back = '#1d2a48'
+cr_white = '#FFFFFF'
 cr_text = '#fff'
 cr_button = '#48fee7'
 cr_bg_text = '#0c171d'
-
 str_title = 'Algorithm Visualizer'
+
+#These are the variables to be passed into SQL
+NumbersList = [] #List to append numbers into
+SortList = ""
+
 
 class Application(tk.Frame):
     def __init__(self, master=None):
@@ -33,7 +39,7 @@ class Application(tk.Frame):
 
 
         algorithm_text = Label(self.master, text="Which Algorithm do you want?")
-        self.algorithm = StringVar(self.master)  # Initialisation on the dropdown menu
+        self.algorithm = StringVar(self.master)  # Initialiation on the dropdown menu
         self.algorithm.set(sort_list[0])  # Show default value of dropdown
         algorithm_textbox = OptionMenu(self.master, self.algorithm, *sort_list)
         algorithm_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
@@ -44,14 +50,25 @@ class Application(tk.Frame):
         self.numbers_box = Entry(self.master, width=10, font=12)
         self.numbers_box.configure(background=cr_bg_text, fg=cr_text)
 
-        commit_button = Button(self.master, height=1, width=12, text="Enter", command=self.commit, font=("Comic Sans MS", 10, "bold"))
-        commit_button.configure(background=cr_button, borderwidth=0, )
+        commit_button = Button(self.master, height=1, width=12, text="Input Number", command=self.commitnumber, font=("Comic Sans MS", 10, "bold"))
+        commit_button.configure(background=cr_white, borderwidth=0, )
+                
+        self.wrong_text = Label(self.master, text="    ")
+        self.wrong_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
+        
+        self.list_text = Label(self.master, text="    ")
+        self.list_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
+        
+        
+        finalcommit_button = Button(self.master, height=2, width=15, text="Confirm", command=self.commitfinal, font=("Comic Sans MS", 10, "bold"))
+        finalcommit_button.configure(background=cr_button, borderwidth=0, )
 
         img = ImageTk.PhotoImage(Image.open('./1.png'))
         label = Label(self.master, image = img)
         label.img = img
         label.configure(borderwidth=0)
 
+        #All of these below is the order they show in
         first_text.pack(in_=title_frame, side=LEFT)
         second_text.pack(in_=title_frame, side=RIGHT)
         title_frame.pack(pady=20)
@@ -60,17 +77,33 @@ class Application(tk.Frame):
         txt_numbers.pack(pady=5)
         self.numbers_box.pack(pady=5)
         commit_button.pack(pady=10)
+        self.wrong_text.pack(pady=5)
+        self.list_text.pack(pady=5)
+        finalcommit_button.pack(pady=10)
         label.pack(pady=10)
 
-    def commit(self):  # The button to enter information
-
-        algorithm_value = str(self.algorithm.get())  # Retrieve information from textboxes
-        numbers_value = str(self.numbers_box.get())
+    def commitfinal(self):
+        
+        algorithm_value = str(self.algorithm.get())
+        SortList = algorithm_value #Make initial sortlist to be passed into different script
+        print(NumbersList)
         print(algorithm_value)
-        print(numbers_value)
+        
+    def commitnumber(self):  # The button to enter information 
+        try:
+            self.wrong_text.configure(text="")
+            numbers_value = self.numbers_box.get() # Retrieve information from textboxes
+            self.numbers_box.delete(0, END)
+            NumbersList.append(int(numbers_value))
+            for x in NumbersList:
+                self.list_text.config(text=repr(NumbersList))
+            print(NumbersList)
+        except:
+            self.numbers_box.delete(0, END)
+            self.wrong_text.configure(text="Plese enter a number")
+            print("error")
+  
 
-
-# https://stackoverflow.com/questions/45441885/how-can-i-create-a-dropdown-menu-from-a-list-in-tkinter
 # Tinker Commands
 root = tk.Tk()
 root.title(str_title)
