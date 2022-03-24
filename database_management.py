@@ -3,7 +3,8 @@ from pygame_visualizer import *
 from Tkinter import *
 import random
 import base64
-
+import hashlib
+from cryptography import fernet
 
 #Sqlite3 Commands
 conn = sqlite3.connect('SQLDB.sqlite3')
@@ -12,10 +13,6 @@ conn.commit()
 
 IDNumbers = ["1","2","3","4","5","6","7","8","9"] #Making ID
 
-#def Encryption(self):
- #       password = self.encode("utf-8")
-  #      encoded = base64.b64encode(password)
-    #    return encoded
 
 def EventCreate(NumbersList, SortList, ElapsedTime):
     ID = random.choice(IDNumbers)
@@ -24,15 +21,20 @@ def EventCreate(NumbersList, SortList, ElapsedTime):
     SQL = c.execute("SELECT EventID FROM tblMain WHERE EventID = " + '"' +str(ID)+ '"')
     Check = c.fetchone()
     if Check == None: #No rows exist it means no identical ID
-        Time = str(ElapsedTime) #Value here until we can take time from maingame
-        AlgorithmPicked = SortList
-        NumbersString = ' '.join([str(x) for x in NumbersList]) #Convert list into a string
-        NumbersPicked = NumbersString
-        Record = [ID, NumbersPicked, AlgorithmPicked, Time]
+        NumbersString = ' '.join([str(x) for x in NumbersList]) #Convert list into a string #Not working yet but close
+        NumbersPicked = NumbersString.encode
+        AlgorithmPicked = SortList.encode
+        Time = str(ElapsedTime).encode #Value here until we can take time from maingame
+        NumberSecure = fernet.encrypt(NumbersPicked)
+        AlgorithmSecure = fernet.encrypt(AlgorithmPicked)
+        TimeSecure = fernet.encrypt(Time)
+        Record = [ID, NumberSecure, AlgorithmSecure, TimeSecure]
         c.execute("INSERT INTO tblMain VALUES(?,?,?,?)",Record)
         conn.commit()  
     else:
         pass
+    
+
         
 
 def Encryption():

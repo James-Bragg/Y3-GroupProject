@@ -4,6 +4,7 @@ import xdrlib
 from PIL import ImageTk, Image #pip install pillow
 import sqlite3
 
+
 # constants
 n_height = 560
 n_width = 480
