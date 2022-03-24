@@ -33,16 +33,17 @@ sql =c.execute("SELECT * FROM tblMain")
 rows = c.fetchall()
 
 
-i=0 
+i=1
+e = Label(root,width=10, text="ID", borderwidth=2,relief='ridge', anchor="w") 
+e.grid(row=i,column=j)
 for data in sql: 
     for j in range(len(data)):
         e = Entry(root, width=10, fg='blue') 
         e.grid(row=i, column=j) 
-        e.insert(END, data[j])
+        #e.insert(END, data[j])
     i=i+1
 
-e = Label(root,width=10, text=data[j], borderwidth=2,relief='ridge', anchor="w") 
-e.grid(row=i,column=j)
+
 
 
 
