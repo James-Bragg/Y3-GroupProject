@@ -1,7 +1,9 @@
 from tkinter import *
+from pygame_visualizer import main
 import tkinter as tk
 import xdrlib
 from PIL import ImageTk, Image #pip install pillow
+from sql import *
 
 # constants
 n_height = 560
@@ -24,7 +26,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
 
-        sort_list = ["QuickSort", "SomeSort", "TestSort"]  # List for options on the different sorts
+        sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]  # List for options on the different sorts
         # Font_tuple = ("Comic Sans MS", 20, "bold")
 
         title_frame = Frame(self.master)
@@ -81,13 +83,6 @@ class Application(tk.Frame):
         self.list_text.pack(pady=5)
         finalcommit_button.pack(pady=10)
         label.pack(pady=10)
-
-    def commitfinal(self):
-        
-        algorithm_value = str(self.algorithm.get())
-        SortList = algorithm_value #Make initial sortlist to be passed into different script
-        print(NumbersList)
-        print(algorithm_value)
         
     def commitnumber(self):  # The button to enter information 
         try:
@@ -103,11 +98,23 @@ class Application(tk.Frame):
             self.wrong_text.configure(text="Plese enter a number")
             print("error")
   
+    def commitfinal(self):
+        algorithm_value = str(self.algorithm.get())
+        SortList = algorithm_value #Make initial sortlist to be passed into different script
+        sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
 
-# Tinker Commands
-root = tk.Tk()
-root.title(str_title)
-root.geometry('{}x{}'.format(n_width, n_height))
-root.configure(background=cr_back)
-app = Application(master=root)
-app.mainloop()
+            
+        print(NumbersList)
+        print(algorithm_value)
+        main(NumbersList, SortList)
+        EventCreate(NumbersList, SortList)
+
+#Tinker Commands
+#This is where the code starts
+def start():
+    root = tk.Tk()
+    root.title(str_title)
+    root.geometry('{}x{}'.format(n_width, n_height))
+    root.configure(background=cr_back)
+    app = Application(master=root)
+    app.mainloop()

@@ -42,14 +42,14 @@ class GUIVisualInfo:
         self.DataBlockHeight = math.floor((self.height - self.TopBorder) / (self.maxVal - self.minVal))
         self.initializeX = self.Margin // 2
    
-def main(lst):
+def main(lst, sort):
     active = True
 
     GUI = GUIVisualInfo(1024, 768, lst)
     sorting = False
     ascending = True
 
-    sortingAlgorithmName = "bubble Sort"
+    sortingAlgorithmName = sort
     sortingAlgorithmGenerator = None
 
     while active:
@@ -77,15 +77,14 @@ def main(lst):
             elif event.key == pygame.K_SPACE and sorting == False:
                 sorting = True
                 from Sorting_algorthims import sortingAlgorithms
-                sortingAlgorithmGenerator = sortingAlgorithms.bubbleSort(GUI, ascending)
+                if sort == "Bubble Sort":
+                    sortingAlgorithmGenerator = sortingAlgorithms.bubbleSort(GUI, ascending)
+                elif sort == "Insertion Sort":
+                    sortingAlgorithmGenerator = sortingAlgorithms.insertionSort(GUI, ascending)
             elif event.key == pygame.K_a and not sorting:
                 ascending = True
             elif event.key == pygame.K_d and not sorting:
                 ascending = False
     pygame.quit
-
-if __name__ == '__main__':
-    lst = [1,2,3,4,4,5,5,65,6,7,7,8,8,88,]
-    main (lst)
 
 

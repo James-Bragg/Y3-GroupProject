@@ -1,5 +1,7 @@
 from draw_algorithms import draw_columns
 
+
+#       sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
 class sortingAlgorithms:
 
     def bubbleSort(drawInfo, ascending = True):
@@ -32,7 +34,7 @@ class sortingAlgorithms:
                 lst[i] = lst[i - 1]
                 i = i -1
                 lst[i] = current
-                draw_columns.drawList(drawInfo, {i: drawInfo.green, i - 1: drawInfo.red}, True)
+                draw_columns.drawList(drawInfo, {i: drawInfo.Green, i - 1: drawInfo.Red}, True)
                 yield True
 
         return lst
