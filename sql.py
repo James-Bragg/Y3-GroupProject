@@ -1,5 +1,5 @@
 import sqlite3
-from pygame_visualiser import *
+from pygame_visualizer import *
 from Tkinter import *
 import random
 
