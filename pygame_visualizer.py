@@ -1,3 +1,4 @@
+
 import math
 import pygame
 pygame.init()
@@ -43,6 +44,7 @@ class GUIVisualInfo:
         self.initializeX = self.Margin // 2
    
 def main(lst, sort):
+
     active = True
 
     GUI = GUIVisualInfo(1024, 768, lst)
@@ -78,13 +80,14 @@ def main(lst, sort):
                 sorting = True
                 from Sorting_algorthims import sortingAlgorithms
                 if sort == "Bubble Sort":
-                    sortingAlgorithmGenerator = sortingAlgorithms.bubbleSort(GUI, ascending)
+                    sortingAlgorithmGenerator = sortingAlgorithms.bubbleSort(GUI, lst, sort, ascending)
                 elif sort == "Insertion Sort":
-                    sortingAlgorithmGenerator = sortingAlgorithms.insertionSort(GUI, ascending)
+                    sortingAlgorithmGenerator = sortingAlgorithms.insertionSort(GUI, lst, sort, ascending)
             elif event.key == pygame.K_a and not sorting:
                 ascending = True
             elif event.key == pygame.K_d and not sorting:
                 ascending = False
+    
     pygame.quit
 
 

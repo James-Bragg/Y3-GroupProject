@@ -1,12 +1,12 @@
 from draw_algorithms import draw_columns
-
-
-#       sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
+from database_management import *
+import time
 class sortingAlgorithms:
 
-    def bubbleSort(drawInfo, ascending = True):
+    def bubbleSort(drawInfo, array, sort, ascending = True):
         lst = drawInfo.lst
 
+        startTimer = time.time()
         for i in range(len(lst) - 1):
             for j in range(len(lst) - 1 - i):
                 num1 = lst[j]
@@ -16,11 +16,16 @@ class sortingAlgorithms:
                     lst[j], lst[j + 1] = lst[j + 1], lst[j]
                     draw_columns.drawList(drawInfo, {j: drawInfo.Green, j + 1: drawInfo.Red}, True)
                     yield True
-
+        
+        endTimer = time.time()
+        elapsedTime = endTimer-startTimer
+        EventCreate(array, sort, elapsedTime)
         return lst
 
-    def insertionSort(drawInfo, ascending=True):
+    def insertionSort(drawInfo, array, sort, ascending=True):
         lst = drawInfo.lst
+
+        startTimer = time.time()
         for i in range(len(lst) - 1):
             current = lst[i]
 
@@ -37,4 +42,7 @@ class sortingAlgorithms:
                 draw_columns.drawList(drawInfo, {i: drawInfo.Green, i - 1: drawInfo.Red}, True)
                 yield True
 
+        endTimer = time.time()
+        elapsedTime = endTimer-startTimer
+        EventCreate(array, sort, elapsedTime)
         return lst

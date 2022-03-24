@@ -1,13 +1,13 @@
 from tkinter import *
-from pygame_visualizer import main
+from pygame_visualizer import *
 import tkinter as tk
 import xdrlib
 from PIL import ImageTk, Image #pip install pillow
-from sql import *
+from DBViewer import *
 
 # constants
-n_height = 560
-n_width = 480
+n_height = 840
+n_width = 720
 
 cr_back = '#1d2a48'
 cr_white = '#FFFFFF'
@@ -64,6 +64,9 @@ class Application(tk.Frame):
         
         finalcommit_button = Button(self.master, height=2, width=15, text="Confirm", command=self.commitfinal, font=("Comic Sans MS", 10, "bold"))
         finalcommit_button.configure(background=cr_button, borderwidth=0, )
+        
+        DB_button = Button(self.master, height=2, width=15, text="View Database", command=self.DBCommit, font=("Comic Sans MS", 10, "bold"))
+        DB_button.configure(background=cr_button, borderwidth=0, )
 
         img = ImageTk.PhotoImage(Image.open('./1.png'))
         label = Label(self.master, image = img)
@@ -82,6 +85,7 @@ class Application(tk.Frame):
         self.wrong_text.pack(pady=5)
         self.list_text.pack(pady=5)
         finalcommit_button.pack(pady=10)
+        DB_button.pack(pady=10)
         label.pack(pady=10)
         
     def commitnumber(self):  # The button to enter information 
@@ -107,8 +111,10 @@ class Application(tk.Frame):
         print(NumbersList)
         print(algorithm_value)
         main(NumbersList, SortList)
-        EventCreate(NumbersList, SortList)
 
+    def DBCommit(self):
+        Commit()
+    
 #Tinker Commands
 #This is where the code starts
 def start():
