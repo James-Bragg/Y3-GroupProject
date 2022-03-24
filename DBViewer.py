@@ -18,7 +18,7 @@ str_title = 'Algorithm Visualizer'
 root = tk.Tk()
 root.title(str_title)
 root.geometry('{}x{}'.format(n_width, n_height))
-root.mainloop()
+
 
 #These are the variables to be passed into SQL
 NumbersList = [] #List to append numbers into
@@ -28,22 +28,29 @@ conn = sqlite3.connect('SQLDB.sqlite3')
 c = conn.cursor() #Initialising cursor
 conn.commit()
 
-sql = "SELECT * FROM tblMain"
+
 sql =c.execute("SELECT * FROM tblMain")
-rows = c.fetchall()
+#rows = c.fetchall()
 
 
+e = Label(root,width=20, text="ID", borderwidth=2,relief='ridge', anchor="w", bg="yellow") 
+e.grid(row=0,column=0)
+e = Label(root,width=20, text="Numbers Picked", borderwidth=2,relief='ridge', anchor="w", bg="yellow") 
+e.grid(row=0,column=1)
+e = Label(root,width=20, text="Algorithm Choice", borderwidth=2,relief='ridge', anchor="w", bg="yellow") 
+e.grid(row=0,column=2)
+e = Label(root,width=20, text="Time Taken", borderwidth=2,relief='ridge', anchor="w", bg="yellow") 
+e.grid(row=0,column=3)
 i=1
-e = Label(root,width=10, text="ID", borderwidth=2,relief='ridge', anchor="w") 
-e.grid(row=i,column=j)
 for data in sql: 
     for j in range(len(data)):
-        e = Entry(root, width=10, fg='blue') 
+        e = Label(root, width=20, text=data[j],borderwidth=2, relief='ridge', anchor='w', fg='black') 
         e.grid(row=i, column=j) 
         #e.insert(END, data[j])
     i=i+1
 
 
+root.mainloop()
 
 
 
