@@ -1,0 +1,64 @@
+from tkinter import *
+import tkinter as tk
+import xdrlib
+from PIL import ImageTk, Image #pip install pillow
+import sqlite3
+
+# constants
+n_height = 560
+n_width = 610
+
+cr_back = '#1d2a48'
+cr_white = '#FFFFFF'
+cr_text = '#fff'
+cr_button = '#48fee7'
+cr_bg_text = '#0c171d'
+str_title = 'Algorithm Visualizer'
+
+
+#These are the variables to be passed into SQL
+NumbersList = [] #List to append numbers into
+SortList = ""
+
+conn = sqlite3.connect('SQLDB.sqlite3')
+c = conn.cursor() #Initialising cursor
+conn.commit()
+
+def rgb_hack(rgb):
+    return "#%02x%02x%02x" % rgb
+
+def Commit():
+    root = tk.Tk()
+    root.title(str_title)
+    root.config(bg=rgb_hack((0,108,180)))
+    root.geometry('{}x{}'.format(n_width, n_height))
+    
+    sql =c.execute("SELECT * FROM tblMain")
+    #rows = c.fetchall()
+
+
+    e = Label(root,width=20, text="ID", borderwidth=0,relief='ridge', fg="white", anchor="w", bg=rgb_hack((0,50,83))) 
+    e.grid(row=0,column=0,pady=5,padx=5)
+    e = Label(root,width=20, text="Numbers Picked", borderwidth=0,relief='ridge',fg="white", anchor="w", bg=rgb_hack((0,50,83))) 
+    e.grid(row=0,column=1,pady=5,padx=5)
+    e = Label(root,width=20, text="Algorithm Choice", borderwidth=0,relief='ridge',fg="white", anchor="w", bg=rgb_hack((0,50,83))) 
+    e.grid(row=0,column=2,pady=5,padx=5)
+    e = Label(root,width=20, text="Time Taken", borderwidth=0,relief='ridge',fg="white", anchor="w", bg=rgb_hack((0,50,83))) 
+    e.grid(row=0,column=3,pady=5,padx=5)
+    i=1
+    for data in sql: 
+        for j in range(len(data)):
+            e = Label(root, width=20, text=data[j],borderwidth=0,bg=rgb_hack((0,50,83)),relief='ridge', anchor='w', fg='white') 
+            e.grid(row=i, column=j,padx=2,pady=2) 
+            #e.insert(END, data[j])
+        i=i+1
+
+    root.mainloop()
+
+
+
+
+
+
+#Tinker Commands
+#This is where the code starts
