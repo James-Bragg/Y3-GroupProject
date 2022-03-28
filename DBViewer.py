@@ -44,7 +44,7 @@ def Commit():
     root.config(bg=rgb_hack((0,108,180)))
     root.geometry('{}x{}'.format(n_width, n_height))
     
-    sql =c.execute("SELECT NumbersPicked, AlgorithmChosen, TimeTaken FROM tblMain")
+    sql = c.execute("SELECT NumbersPicked, AlgorithmChosen, TimeTaken FROM tblMain")
     #rows = c.fetchall()
 
 

@@ -31,7 +31,7 @@ def EventCreate(NumbersList, SortList, ElapsedTime):
     ID = random.choice(IDNumbers)
     for row in range(5):
         ID = ID + random.choice(IDNumbers)
-    SQL = c.execute("SELECT EventID FROM tblMain WHERE EventID = " + '"' +str(ID)+ '"')
+    c.execute("SELECT EventID FROM tblMain WHERE EventID = " + '"' +str(ID)+ '"')
     Check = c.fetchone()
     if Check == None: #No rows exist it means no identical ID
         NumbersString = ' '.join([str(x) for x in NumbersList]) #Convert list into a string #Not working yet but close

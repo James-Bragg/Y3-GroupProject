@@ -4,6 +4,7 @@ import tkinter as tk
 import xdrlib
 from PIL import ImageTk, Image #pip install pillow
 from DBViewer import *
+from tkinter import filedialog
 
 # constants
 n_height = 840
@@ -49,8 +50,8 @@ class Application(tk.Frame):
 
         txt_numbers = Label(self.master, text="What numbers do you want?", font=("Comic Sans MS", 10, "bold"))
         txt_numbers.configure(background=cr_back, fg=cr_text, borderwidth=0)
-        self.numbers_box = Entry(self.master, width=10, font=12)
-        self.numbers_box.configure(background=cr_bg_text, fg=cr_text)
+        #self.numbers_box = Entry(self.master, width=10, font=12)
+        #self.numbers_box.configure(background=cr_bg_text, fg=cr_text)
 
         commit_button = Button(self.master, height=1, width=12, text="Input Number", command=self.commitnumber, font=("Comic Sans MS", 10, "bold"))
         commit_button.configure(background=cr_white, borderwidth=0, )
@@ -80,7 +81,7 @@ class Application(tk.Frame):
         algorithm_text.pack(pady=5)
         algorithm_textbox.pack(pady=5)
         txt_numbers.pack(pady=5)
-        self.numbers_box.pack(pady=5)
+        #self.numbers_box.pack(pady=5)
         commit_button.pack(pady=10)
         self.wrong_text.pack(pady=5)
         self.list_text.pack(pady=5)
@@ -90,16 +91,20 @@ class Application(tk.Frame):
         
     def commitnumber(self):  # The button to enter information 
         try:
+            txt = filedialog.askopenfilename()
+            with open(""+txt) as file:
+                NumbersList = [NumbersList.rstrip('\n') for NumbersList in file]
+                NumbersList = list(map(int,NumbersList))
             self.wrong_text.configure(text="")
-            numbers_value = self.numbers_box.get() # Retrieve information from textboxes
-            self.numbers_box.delete(0, END)
-            NumbersList.append(int(numbers_value))
+            #numbers_value = self.numbers_box.get() # Retrieve information from textboxes
+            #self.numbers_box.delete(0, END)
+            #NumbersList.append(int(numbers_value))
             for x in NumbersList:
                 self.list_text.config(text=repr(NumbersList))
             print(NumbersList)
         except:
-            self.numbers_box.delete(0, END)
-            self.wrong_text.configure(text="Plese enter a number")
+            #self.numbers_box.delete(0, END)
+            self.wrong_text.configure(text="Please enter a number")
             print("error")
   
     def commitfinal(self):
