@@ -93,15 +93,15 @@ class Application(tk.Frame):
         try:
             txt = filedialog.askopenfilename()
             with open(""+txt) as file:
-                NumbersList = [NumbersList.rstrip('\n') for NumbersList in file]
-                NumbersList = list(map(int,NumbersList))
+                self.NumbersList = [self.NumbersList.rstrip('\n') for self.NumbersList in file]
+                self.NumbersList = list(map(int,self.NumbersList))
             self.wrong_text.configure(text="")
             #numbers_value = self.numbers_box.get() # Retrieve information from textboxes
             #self.numbers_box.delete(0, END)
             #NumbersList.append(int(numbers_value))
-            for x in NumbersList:
-                self.list_text.config(text=repr(NumbersList))
-            print(NumbersList)
+            for x in self.NumbersList:
+                self.list_text.config(text=repr(self.NumbersList))
+            print(self.NumbersList)
         except:
             #self.numbers_box.delete(0, END)
             self.wrong_text.configure(text="Please enter a number")
@@ -113,9 +113,9 @@ class Application(tk.Frame):
         sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
 
             
-        print(NumbersList)
+        print(self.NumbersList)
         print(algorithm_value)
-        main(NumbersList, SortList)
+        main(self.NumbersList, SortList)
 
     def DBCommit(self):
         Commit()
