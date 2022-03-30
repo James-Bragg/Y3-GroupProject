@@ -58,7 +58,7 @@ def selectionSort(drawInfo, array, sort, ascending=True):
 
         for j in range(i + 1, len(lst) - 1):
 
-            if (lst[j] < lst[Min] and not ascending) or (lst[j] > lst[Min] and ascending):
+            if (lst[j] > lst[Min] and not ascending) or (lst[j] < lst[Min] and ascending):
                 Min = j
         
         lst[i], lst[Min] = lst[Min], lst[i]
