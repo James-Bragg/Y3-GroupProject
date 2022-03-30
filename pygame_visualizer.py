@@ -78,11 +78,13 @@ def main(lst, sort):
                 sorting = False
             elif event.key == pygame.K_SPACE and sorting == False:
                 sorting = True
-                from Sorting_algorthims import sortingAlgorithms
+                from Sorting_algorthims import bubbleSort, insertionSort, selectionSort
                 if sort == "Bubble Sort":
-                    sortingAlgorithmGenerator = sortingAlgorithms.bubbleSort(GUI, lst, sort, ascending)
+                    sortingAlgorithmGenerator = bubbleSort(GUI, lst, sort, ascending)
                 elif sort == "Insertion Sort":
-                    sortingAlgorithmGenerator = sortingAlgorithms.insertionSort(GUI, lst, sort, ascending)
+                    sortingAlgorithmGenerator = insertionSort(GUI, lst, sort, ascending)
+                elif sort == "Selection Sort":
+                    sortingAlgorithmGenerator = selectionSort(GUI, lst, sort, ascending)
             elif event.key == pygame.K_a and not sorting:
                 ascending = True
             elif event.key == pygame.K_d and not sorting:

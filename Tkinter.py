@@ -27,7 +27,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master = master
 
-        sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]  # List for options on the different sorts
+        sort_list = ["Insertion Sort", "Bubble Sort", "Selection Sort"]  # List for options on the different sorts
         # Font_tuple = ("Comic Sans MS", 20, "bold")
 
         title_frame = Frame(self.master)
