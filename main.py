@@ -1,6 +1,6 @@
-from Tkinter import start
+from main_menu_gui import start
 
-#sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
+# Starts the application
 start()
 
 

@@ -40,35 +40,39 @@ class Application(tk.Frame):
                            text=str_title,
                            font=("Comic Sans MS", 15, "bold"), fg=cr_button, background=cr_back)
 
-
+        #Asks for what specific algorithm to choose from
         algorithm_text = Label(self.master, text="Which Algorithm do you want?")
         self.algorithm = StringVar(self.master)  # Initialiation on the dropdown menu
         self.algorithm.set(sort_list[0])  # Show default value of dropdown
-        algorithm_textbox = OptionMenu(self.master, self.algorithm, *sort_list)
+        algorithm_textbox = OptionMenu(self.master, self.algorithm, *sort_list) #Drop down menu
         algorithm_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
         algorithm_textbox.configure(borderwidth=0, font=("Comic Sans MS", 12, "bold"))
 
+        #Text box to ask what number you want to input
         txt_numbers = Label(self.master, text="What numbers do you want?", font=("Comic Sans MS", 10, "bold"))
         txt_numbers.configure(background=cr_back, fg=cr_text, borderwidth=0)
         #self.numbers_box = Entry(self.master, width=10, font=12)
         #self.numbers_box.configure(background=cr_bg_text, fg=cr_text)
 
+        #Button to allow user to upload .txt file
         commit_button = Button(self.master, height=1, width=12, text="Input Number", command=self.commitnumber, font=("Comic Sans MS", 10, "bold"))
-        commit_button.configure(background=cr_white, borderwidth=0, )
-                
+        commit_button.configure(background=cr_white, borderwidth=0, ) 
+
+        #If anything other than the txt file is put in, it will throw this error message        
         self.wrong_text = Label(self.master, text="    ")
         self.wrong_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
-        
         self.list_text = Label(self.master, text="    ")
         self.list_text.configure(background=cr_back, font=("Comic Sans MS", 10, "bold"), fg=cr_text)
         
-        
+        #Button for final results
         finalcommit_button = Button(self.master, height=2, width=15, text="Confirm", command=self.commitfinal, font=("Comic Sans MS", 10, "bold"))
         finalcommit_button.configure(background=cr_button, borderwidth=0, )
         
+        #Button to view database
         DB_button = Button(self.master, height=2, width=15, text="View Database", command=self.DBCommit, font=("Comic Sans MS", 10, "bold"))
         DB_button.configure(background=cr_button, borderwidth=0, )
 
+        #Image for algorithm visualizer
         img = ImageTk.PhotoImage(Image.open('./1.png'))
         label = Label(self.master, image = img)
         label.img = img
@@ -90,27 +94,22 @@ class Application(tk.Frame):
         label.pack(pady=10)
         
     def commitnumber(self):  # The button to enter information 
-        try:
+        try: #It will allow user to upload .txt file
             txt = filedialog.askopenfilename()
             with open(""+txt) as file:
-                self.NumbersList = [self.NumbersList.rstrip('\n') for self.NumbersList in file]
+                #Strips "blank" spaces so it will only get numbers from list
+                self.NumbersList = [self.NumbersList.rstrip('\n') for self.NumbersList in file] 
                 self.NumbersList = list(map(int,self.NumbersList))
-            self.wrong_text.configure(text="")
-            #numbers_value = self.numbers_box.get() # Retrieve information from textboxes
-            #self.numbers_box.delete(0, END)
-            #NumbersList.append(int(numbers_value))
+            self.wrong_text.configure(text="") #Will show all numbers that was in txt file
             for x in self.NumbersList:
                 self.list_text.config(text=repr(self.NumbersList))
-            print(self.NumbersList)
         except:
-            #self.numbers_box.delete(0, END)
-            self.wrong_text.configure(text="Please enter a number")
-            print("error")
+            self.wrong_text.configure(text="Please enter a number") #If wrong file uploaded it will spit error message
   
     def commitfinal(self):
         algorithm_value = str(self.algorithm.get())
         SortList = algorithm_value #Make initial sortlist to be passed into different script
-        sort_list = ["Quick Sort", "Bubble Sort", "Insertion Sort"]
+        sort_list = ["Selection Sort", "Bubble Sort", "Insertion Sort"]
 
             
         print(self.NumbersList)

@@ -12,6 +12,7 @@ class GUIVisualInfo:
     Red = 255, 0, 0
     BackgroundColor = Black
 
+    # gradient which is used to sets colours of the column
     Gradient = [
         (46, 172, 49),
         (10, 142, 192),
@@ -24,7 +25,7 @@ class GUIVisualInfo:
     Margin = 100
     TopBorder = 150
 
-
+    #sets information about the size and basic elements of the GUI
     def __init__(self, width, height, lst):
         self.width = width
         self.height = height
@@ -33,7 +34,7 @@ class GUIVisualInfo:
         pygame.display.set_caption("Algorithm visualizer")
         self.setList(lst)
 
-    # setting list and creating GUI objects to visualize data
+    # setting list and creating GUI objects to visualize data onto the screen using the min/max values from the array
     def setList(self, lst):
         self.lst = lst
         self.minVal = min(lst)
@@ -47,30 +48,33 @@ def main(lst, sort):
 
     active = True
 
+    #passes gui information such as size and array to determine the size of columns
     GUI = GUIVisualInfo(1024, 768, lst)
+
+    #setting default variabes 
     sorting = False
     ascending = True
-
     sortingAlgorithmName = sort
     sortingAlgorithmGenerator = None
 
+    #runs while application is on
     while active:
 
+        # tries to run the sorting algorithm if sorting is set to true
         if sorting:
             try:
                 next(sortingAlgorithmGenerator)
             except StopIteration:
                 sorting = False
         else:
+            # else will update the display elements such as order of sorting order
             from draw_algorithms import draw_key
             draw_key.draw(GUI, sortingAlgorithmName, ascending)
 
+        #sets key events on action or key press to interface with the display
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 active = False
-            if event.type == pygame.VIDEORESIZE:
-                from draw_algorithms import draw_key
-                draw_key(GUI, sortingAlgorithmName, ascending)
             if event.type != pygame.KEYDOWN:
                 continue
             if event.key == pygame.K_r:
