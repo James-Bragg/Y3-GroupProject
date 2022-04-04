@@ -1,4 +1,3 @@
-
 import math
 import pygame
 pygame.init()
@@ -26,30 +25,31 @@ class GUIVisualInfo:
     TopBorder = 150
 
     #sets information about the size and basic elements of the GUI
-    def __init__(self, width, height, lst):
+    def __init__(self, width, height, array):
         self.width = width
         self.height = height
 
         self.window = pygame.display.set_mode((width, height), pygame.RESIZABLE)
         pygame.display.set_caption("Algorithm visualizer")
-        self.setList(lst)
+        self.setList(array)
 
     # setting list and creating GUI objects to visualize data onto the screen using the min/max values from the array
-    def setList(self, lst):
-        self.lst = lst
-        self.minVal = min(lst)
-        self.maxVal = max(lst)
+    def setList(self, array):
+        self.array = array
+        self.min = min(array)
+        self.max = max(array)
 
-        self.DataBlockWidth = round((self.width - self.Margin) / len(lst))
-        self.DataBlockHeight = math.floor((self.height - self.TopBorder) / (self.maxVal - self.minVal))
+        self.DataBlockWidth = round((self.width - self.Margin) / len(array))
+        self.DataBlockHeight = math.floor((self.height - self.TopBorder) / (self.max - self.min))
         self.initializeX = self.Margin // 2
    
-def main(lst, sort):
+def main(array, sort):
 
     active = True
+    limit = pygame.time.Clock()
 
     # passes gui information such as size and array to determine the size of columns
-    GUI = GUIVisualInfo(1024, 768, lst)
+    GUI = GUIVisualInfo(1024, 768, array)
 
     #setting default variabes 
     sorting = False
@@ -59,6 +59,9 @@ def main(lst, sort):
 
     # runs while application is on
     while active:
+
+        limit.tick(60)
+        pygame.display.update()
 
         # tries to run the sorting algorithm if sorting is set to true
         if sorting:
@@ -77,18 +80,15 @@ def main(lst, sort):
                 active = False
             if event.type != pygame.KEYDOWN:
                 continue
-            if event.key == pygame.K_r:
-                GUI.setList(lst)
-                sorting = False
-            elif event.key == pygame.K_SPACE and sorting == False:
+            if event.key == pygame.K_SPACE and sorting == False:
                 sorting = True
                 from Sorting_algorthims import bubbleSort, insertionSort, selectionSort
                 if sort == "Bubble Sort":
-                    sortingAlgorithmGenerator = bubbleSort(GUI, lst, sort, ascending)
+                    sortingAlgorithmGenerator = bubbleSort(GUI, array, sort, ascending)
                 elif sort == "Insertion Sort":
-                    sortingAlgorithmGenerator = insertionSort(GUI, lst, sort, ascending)
+                    sortingAlgorithmGenerator = insertionSort(GUI, array, sort, ascending)
                 elif sort == "Selection Sort":
-                    sortingAlgorithmGenerator = selectionSort(GUI, lst, sort, ascending)
+                    sortingAlgorithmGenerator = selectionSort(GUI, array, sort, ascending)
             elif event.key == pygame.K_a and not sorting:
                 ascending = True
             elif event.key == pygame.K_d and not sorting:

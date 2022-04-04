@@ -11,7 +11,7 @@ class draw_key:
         title = drawInfo.Font.render(f"{sortingAlgorithmName} - {'Ascending' if ascending else 'Desencding'} ", 1, drawInfo.White)
         drawInfo.window.blit(title, (drawInfo.width/2 - title.get_width()/2, 5))
 
-        controls = drawInfo.Font.render("Key: R = reset, Space = Start visualizer, A = Ascending, D = Descending", 1, drawInfo.White)
+        controls = drawInfo.Font.render("Space = Start visualizer, A = Ascending, D = Descending", 1, drawInfo.White)
         drawInfo.window.blit(controls, (drawInfo.width/2 - controls.get_width()/2, 35))
 
         # updates the information on screen 
@@ -22,7 +22,7 @@ class draw_key:
 class draw_columns:
     # function that will update the bars on the screen depending on information sent from the daw_key function
     def drawList(drawInfo, colourPositions={}, clearBG=False):
-        lst = drawInfo.lst
+        array = drawInfo.array
 
         # only draws the columns without the need to update all elements on the screen
         if clearBG:
@@ -30,10 +30,10 @@ class draw_columns:
             drawInfo.width - drawInfo.Margin, drawInfo.height - drawInfo.TopBorder)
             pygame.draw.rect(drawInfo.window, drawInfo.BackgroundColor, clearRect)
 
-        for i, val in enumerate(lst):
+        for i, val in enumerate(array):
             # creates different columns based on the size of the window and the value in the algorithm
             x = drawInfo.initializeX + i * drawInfo.DataBlockWidth
-            y = drawInfo.height - (val - drawInfo.minVal) * drawInfo.DataBlockHeight
+            y = drawInfo.height - (val - drawInfo.min) * drawInfo.DataBlockHeight
 
             # sets the colour of the boxes from the three colour elements assigned
             colour = drawInfo.Gradient[i % 3]

@@ -1,6 +1,12 @@
 from main_menu_gui import start
 
 # Starts the application
-start()
+def main():
+    start()
+
+if __name__ == '__main__':
+    main()
+
+
 
 

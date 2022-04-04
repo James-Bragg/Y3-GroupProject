@@ -110,10 +110,6 @@ class Application(tk.Frame):
         algorithm_value = str(self.algorithm.get())
         SortList = algorithm_value #Make initial sortlist to be passed into different script
         sort_list = ["Selection Sort", "Bubble Sort", "Insertion Sort"]
-
-            
-        print(self.NumbersList)
-        print(algorithm_value)
         main(self.NumbersList, SortList)
 
     def DBCommit(self):
